@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Joint LISP+VBA_2.1_Nav</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<title>Code Analyzer with Joint.js</title>
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.5.0/backbone-min.js">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.7/joint.min.js">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.pan-zoom.js/2.8.0/svg.pan-zoom.min.js">
+
+<script src="https://codepen.io/Catrisa/pen/zYeXzoR.js">
+
+-->
+<section id="getFile">
+  <label for="fileInput">Selecciona un archivo:</label>
+  <input type="file" id="fileInput" onchange="handleFileUpload(event)">
+  <br>
+
+  <label for="lispCode">O ingresa el código:</label>
+  <textarea id="lispCode" rows="20" cols="50"></textarea>
+</section>
+
+  <!--<pre id="pruebaLisp">
+  <button onclick="getPrueba('lisp')">; Cargar prueba LISP</button>
+-->
+<section id="procesa" class="divbutton buttons drop">
+  <pre id="pruebaLisp">
+  <button onclick="getPrueba('lisp')">; Cargar prueba LISP</button>
+  </pre>
+  
+  <button onclick="getPrueba('lisp')">Prueba LISP</button>
+  <button onclick="getPrueba('VBA')">Prueba VBA</button>
+  <button onclick="analyzeCode('lisp')">Lisp</button>
+  <button onclick="analyzeCode('VBA')">VBA</button>
+</section>
+
+<section id="result">
+  <label for="analysisResult">Resultado del análisis (JSON):</label>
+  <textarea id="analysisResult" rows="20" cols="50" readonly>
+  </textarea>
+  
+  <textarea id="datosflow" rows="20" cols="50" readonly></textarea>
+ <div id="divflow" class="flow"></div>
+</section>
+
+<section id="diagrama">
+  <div class="parent">
+    <div class="div1">
+      <div class="scroll">
+        <div id="graph-container"></div>
+      </div>
+
+    </div>
+    <div class="div2" onclick="move('up')"><i class="fas fa-arrow-up"></i> </div>
+    <div class="div3" onclick="move('down')"><i class="fas fa-arrow-down"></i></div>
+    <div class="div4" onclick="move('left')"><i class="fas fa-arrow-left"></i></div>
+    <div class="div5" onclick="move('right')"><i class="fas fa-arrow-right"></i></div>
+    
+    <div class="div6">
+      <button onclick="zoom('in')" class="col1"><i class="fas fa-search-plus"></i></button>
+        <button onclick="zoom('out')" class="col2"><i class="fas fa-search-minus"></i></button>
+      
+    </div>
+    <div class="div7">
+      <button onclick="aumenta('in')" class="col3"><i class="fa fa-arrows-alt"></i></button>
+      <button onclick="aumenta('out')" class="col4"><i class="fas fa-expand"></i></button>
+    </div>
+  </div>
+
+</section>
+
+<section id="ejemplo" class="drop">
+
+  <pre id="pruebaLisp">
+  <button onclick="getPrueba('lisp')">; Cargar prueba LISP</button>
+
+(defun p2s (pto) 
+  (strcat (itoa (car pto)) "," (itoa (cadr pto)))
+)
+
+(defun l2s (line) 
+  (strcat (p2s (car line)) (p2s (cadr line)))
+)
+
+(defun get-intersection-point (line1 line2) 
+  (setq pt1 (car line1)
+        pt2 (cadr line1)
+        pt3 (car line2)
+        pt4 (cadr line2)
+  )
+ 
+)
+
+(defun distancia-puntos (pt1 pt2) 
+  (setq x1 (car pt1)
+  
+  )
+)
+
+(defun perpendicular-line (p line) 
+  (mkl line)
+  (setq p1 (car line))
+  (setq p2 (cadr line))
+  
+)
+
+;(defun ejemplointer()
+;  (setq l1 (list (list 0 -1) (list 100 0)))
+;  (setq li (list (list 30 -20) (list 30 100)))
+;)
+
+(defun pm (ls lt) 
+  ;(mkl lt)
+  (setq cont 0)
+
+  (setq h  0
+        l  (distancia-puntos (car lt) (cadr lt))
+        il 0
+        ih 0
+  )
+
+  (foreach x ls 
+    ;(mkl x)
+    (setq pin (get-intersection-point lt x))
+
+    (setq lspto (append lspto (list pin)))
+    (setq d1 (distancia-puntos pin (car lt)))
+
+    (setq lstd (append lstd (list d1)))
+  )
+
+  (defun lint-show()
+    (print "Function pm")
+    (print "Lista de ")(princ (length ls))(princ " lineas.")
+    (princ (nth ih ls))
+  )
+  (linea-media (nth il ls) (nth ih ls))
+)
+
+(defun linea-media (l1 l2 / p1 p2)
+  (setq p1 (punto-medio (car l1)(car l2)))
+  (mkl (list p1 p2))
+)
+
+(defun punto-medio (p1 p2 / x1 x2 y1 y2 punto-medio-x punto-medio-y)
+  (setq y2 (cadr p2))
+  (setq punto-medio-x (/ (+ x1 x2) 2.0))
+)
+
+(defun cdra (pos ent)
+  (cdr (assoc pos ent))
+)
+
+(defun dame_entidades (sset1 / enti dat1 cont distan p1 p2)
+  (print "dame_entidades")
+  (print (sslength sset1))
+  (if (/= (sslength sset1) 2)
+    (progn
+      (princ "\nSe necesitan dos entidades tipo LINE.")
+    )
+    (progn
+          (make-lwpol (list pi3 pf3) nil)
+    )
+  )
+)
+
+(defun dame_lista_lineas (ssetall / enti dat1 cont distan p1 p2)
+  (setq num-entidades (sslength ssetall))
+  (while (< i num-entidades) 
+    (if (= (cdra 0 dat1) "LINE")
+      (progn
+        (setq pi1 (cdra 10 dat1)
+              pf1 (cdra 11 dat1))
+      )
+      (princ (strcat "\nEntidad " (cdra 0 dat1)))
+    )    
+  )
+  lt
+)
+
+(defun mkl (line / p1 p2) 
+  (setq p1 (car line))
+  (setq p2 (cadr line))
+
+  (entmake 
+    (list 
+      '(0 . "LINE")
+      (cons 10 p1)
+    )
+  )
+)
+
+(defun mklP (P1 P2) 
+  (entmake 
+    (list 
+      '(0 . "LINE")
+      (cons 10 p1)
+    )
+  )
+)
+
+(defun ecuacion-linea (p1 p2)
+  (setq ecuacion (strcat "y = " (rtos m) "x + " (rtos b)))
+  (prompt ecuacion)
+)
+
+(defun c:lint (/ ss)
+  (inivar "CMD" 0)
+  (setq p1 (getpoint "\nDesignar primer punto: "))
+  (if p1 (setq p2 (getpoint p1 "\nDesignar segundo punto: ")))
+  
+  (if (setq ss (ssget "_C" p1 p2)) ; ":L" '((0 . "LWPOLYLINE,LINE")  )))
+    (progn
+      (mklp p1 p2)
+      (setq listado (dame_lista_lineas ss))
+    )
+    (princ "\nNo se han seleccionado entidades.")
+  )
+  (resvar "CMD")
+  (terpri)
+)
+ </pre>
+
+  <pre id="pruebaVBA">
+     <button onclick="getPrueba('VBA')">' Cargar prueba VBA</button>
+     
+Attribute VB_Name = "PreparaBD"
+Public rutaBuscarExcel As String
+Public rutaDestino As String
+
+Sub config()
+    rutaBuscarExcel = "C:\MD_Sql\OrigenExcel"
+    extensionBuscarExcel = "xls"
+    rutaDestino = "C:\MD_Sql\BDAuxiliar"
+ 
+    columnasProcesado = Array("DIRECTORIO", "NOMBRE")
+    limiteExcelProcesar = 50
+End Sub
+
+Sub BuscarArchivosXLS_origen(ByVal CarpetaInicial As String)
+    ' Recorrer todos los archivos en la carpeta inicial
+    For Each Archivo In Carpeta.Files
+        ' Verificar si el archivo tiene la extensi�n ".xls"
+        If InStr(LCase(Right(Archivo.Name, 5)), ".xls") <> 0 Then
+            ' Hacer algo con el archivo (por ejemplo, imprimir el nombre)
+            Debug.Print Archivo.Path
+        End If
+    Next Archivo
+    For Each Subcarpeta In Carpeta.Subfolders
+
+        BuscarArchivosXLS Subcarpeta.Path
+    Next Subcarpeta
+
+    ' Liberar el objeto FileSystemObject
+    Set FSO = Nothing
+End Sub
+
+Sub inicio()
+    Call config
+
+     Call BuscarArchivosXLS(rutaBuscarExcel, extensionBuscarExcel)
+    Close #1
+End Sub
+
+Function procesaCSV()
+    Dim nombreExcelListado
+    nombreExcelListado = Replace(hojaCSV.Cells(r + cont, c + 1).Value, "##", ",")
+    v = hojaCSV.Cells(r + cont, c).Value & "\" & nombreExcelListado
+   
+End Function
+
+Sub ObtenerColumnaActiva()
+    Call config
+    For Each it In rng
+        Call procesaOneCSV(it.row)
+    Next
+End Sub
+
+Function procesaOneCSV(posPpal)
+   
+    If (nombreExcelListado <> "") Then
+        If (hojaPpal.Cells(posPpal, cPos("link")).Value = "") Then
+            hojaPpal.Cells(posPpal, cPos("link")).Select
+            ActiveSheet.Hyperlinks.Add Anchor:=Selection, Address:=nombreExcelListado, TextToDisplay:=nombreExcelListado
+        End If
+
+        If isFormatoExcelMD(nombreExcelListado) = False Then
+            'hojaPpal.Cells(posPpal, 2).Value = v
+            hojaPpal.Cells(posPpal, cPos("observacion")).Value = "Formato de archivo no reconocido, no se procesa"
+        Else
+            resultHoja = procesaExcelMedicion(nombreExcelListado)
+            If IsEmpty(resultHoja) Then
+                'hojaPpal.Cells(posPpal, 2).Value = v
+                hojaPpal.Cells(posPpal, cPos("observacion")).Value = "VACIO"
+            Else
+                lres = UBound(resultHoja)
+                'hojaPpal.Cells(posPpal, 2).Value = v
+                hojaPpal.Cells(posPpal, cPos("hoja")).Value = resultHoja(0)
+                If lres > 0 Then hojaPpal.Cells(posPpal, cPos("version")).Value = resultHoja(1)
+                If lres > 1 Then hojaPpal.Cells(posPpal, cPos("observacion")).Value = resultHoja(2)
+            End If
+        End If
+    End If
+    'MsgBox "Procesados " & contadorProcesados & " calculos de presupuestos MD."
+    
+        End Function
+
+Function isFormatoExcelMD(texto) As Boolean
+    Dim patron As String
+    Dim regEx As Object
+    Dim matches As Object
+    Dim match As Object
+    
+    'patron = "OF\.MD\s\d{6}(\.\d)?-\w+,\s[\w\s]+\.xls"
+    patron = "OF\.MD \d+(\.\d+)?[-_\s](\w)+?[^,]+(\s*,\s*[^,]+)*\.xls"
+
+    Set regEx = CreateObject("VBScript.RegExp")
+    With regEx
+        .Pattern = patron
+        .Global = True
+    End With
+    
+    Set matches = regEx.Execute(texto)
+    If matches.Count > 0 Then
+        'Set match = matches.Item(0)
+        'Debug.Print "OK " & match.Value
+        isFormatoExcelMD = True
+    Else
+        isFormatoExcelMD = False
+    End If
+    Debug.Print "   isFormatoExcelMD=", isFormatoExcelMD
+
+End Function
+
+Function procesaExcelMedicion(RutaArchivo) As Variant        
+    If (hojas(0) = "ERROR") Then
+        procesaExcelMedicion = Array(
+        "ERROR en nombre de pesta�a. Tomamos la primera hoja.", "", "")
+        MiLibro.Sheets(1).Select
+        resultSQL = SQL_export.SQL_export
+    Else
+        procesaExcelMedicion = Array("Encontrada hoja: " & hojas(1), "", "")
+        resultSQL = SQL_export.SQL_export
+    End If
+    
+    Windows(nombreExcel).Activate
+   
+salida:
+   MiLibro.Close
+cerrado:
+     procesaExcelMedicion = resultSQL
+End Function
+
+Function nombreHojas(excelAbierto) As Variant
+    Dim result As Variant
+    result = Array("", "", "")
+    Dim txt, n
+    Dim contMD
+    contMD = 0
+    txt = ""
+    
+    With excelAbierto.Sheets
+        For i = 1 To .Count
+            result(2) = result(2) & ";" & n
+        Next i
+    End With
+    
+    If (contMD = 0) Then
+           result(1) = "No se encuentra la hoja a procesar"
+    Else
+        result(1) = txt
+        result(2) = "ADVERTENCIA: " & result(2)
+    End If
+    
+    nombreHojas = result
+
+End Function
+
+Function isProcessed(sheetXLS, nombreArchivo, Optional searchColumn = 1) As Variant
+    v = sheetXLS.Cells(cont, c).Value '& "\" & sheetXLS.Cells(cont, c + 1).Value
+        
+    While (v <> "")
+        If (v = nombreArchivo) Then
+            isProcessed = Array(1, cont)
+            Exit Function
+        End If
+        
+        v = sheetXLS.Cells(cont, c).Value
+        cont = cont + 1
+    
+    Wend
+    isProcessed = Array(0, cont)
+    
+End Function
+
+Function ObtenerTamanoArchivo(RutaArchivo As String) As Long
+    Dim fs As Object
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    
+    If fs.FileExists(RutaArchivo) Then
+        ObtenerTamanoArchivo = fs.GetFile(RutaArchivo).Size
+    Else
+        ObtenerTamanoArchivo = -1 ' Devuelve -1 si el archivo no existe
+    End If
+    
+    Set fs = Nothing
+End Function
+
+Function BuscarArchivosXLS(ByVal CarpetaInicial As String, extension)
+    Dim Carpeta As Object, Subcarpeta As Object
+    Dim Archivo As Object
+    Dim FSO As Object
+    Dim Ruta As String
+
+    ' Crear un objeto FileSystemObject
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+
+    ' Comprobar si la carpeta inicial existe
+    If Not FSO.FolderExists(CarpetaInicial) Then
+        'MsgBox "La carpeta inicial no existe.", vbExclamation
+        Exit Function
+    End If
+
+    ' Obtener la lista de archivos en la carpeta inicial
+    Set Carpeta = FSO.GetFolder(CarpetaInicial)
+    'Debug.Print "Buscando en " & CarpetaInicial
+
+    ' Recorrer todos los archivos en la carpeta inicial
+    For Each Archivo In Carpeta.Files
+        ' Verificar si el archivo tiene la extensi�n ".xls"
+        If InStr(LCase(Right(Archivo.Name, 5)), extension) <> 0 Then
+            ' Hacer algo con el archivo (por ejemplo, imprimir el nombre)
+            Debug.Print Archivo.Path
+            
+            Debug.Print Replace(CarpetaInicial & "\" & Archivo.Name, "\", "##")
+            'Print #1, Replace(ruta & "\" & archivo.Name, "\", "#")
+            Print #1, CarpetaInicial & "," & Replace(Archivo.Name, ",", "##") & "," & FSO.GetFile(Archivo.Path).Size
+
+        End If
+    Next Archivo
+    
+    'Recorrer las subcarpetas de la carpeta inicial de forma recursiva
+    For Each Subcarpeta In Carpeta.Subfolders
+        Debug.Print Subcarpeta.Path
+        BuscarArchivosXLS Subcarpeta.Path, extension
+    Next Subcarpeta
+
+    ' Liberar el objeto FileSystemObject
+    Set FSO = Nothing
+End Function
+
+
+Function Mostrar_Archivos(Ruta, extension)
+    Dim fs, Carpeta, Archivo, Subcarpeta As Object
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Dim cont
+    
+    cont = 0
+    
+    If Ruta = "" Then
+        Exit Function
+    ElseIf Right(Ruta, 1) <> "" Then
+        Ruta = Ruta & ""
+    End If
+     
+    On Error GoTo ErrHandler
+    Set Carpeta = fs.GetFolder(Ruta)
+    
+    For Each Archivo In Carpeta.Files
+        'If InStr(LCase(Right(Archivo.Name, 5)), ".xls") <> 0 Then
+        If InStr(LCase(Right(Archivo.Name, 5)), extension) <> 0 Then
+
+        'If InStr(Left(fs.GetExtensionName(Archivo), 5), extension) > 0 Then
+            'ActiveCell.Value = ruta
+            'ActiveCell.Offset(0, 1).Value = archivo.Name
+            'ActiveCell.Offset(0, 2).Value = Replace(ruta & "\" & archivo.Name, "\", "##")
+            'ActiveCell.Offset(1, 0).Select
+            Debug.Print Replace(Ruta & "\" & Archivo.Name, "\", "##")
+            'Print #1, Replace(ruta & "\" & archivo.Name, "\", "#")
+            Print #1, Ruta & "," & Replace(Archivo.Name, ",", "##")
+            numFiles = numFiles + 1
+
+        '    fs.CopyFile Source:=fs.GetFile(archivo), _
+        '    Destination:=DestinationFolder & "\" & archivo.Name, Overwritefiles:=False
+        End If
+
+    Next
+    
+    
+    
+    
+    'Secci�n 5: Obtener subcarpetas del objeto Folder
+    For Each Subcarpeta In Carpeta.Subfolders
+        Debug.Print "Entramos en subcarpeta: " & Subcarpeta
+        Call Mostrar_Archivos(Subcarpeta, extension)
+    Next
+     
+    'Secci�n 6: Auto-ajustar columnas y salir
+    ActiveCell.EntireColumn.AutoFit
+
+salimos:
+
+    Exit Function
+     
+ErrHandler:
+    'ActiveCell.Value = "Ruta inexistente"
+ 
+End Function
+    
+    
+Function AbrirCSV(nombreArchivo) As Boolean
+   If Right(nombreArchivo, 4) <> ".xls" And _
+       Right(nombreArchivo, 5) <> ".xlsx" And _
+       Right(nombreArchivo, 4) <> ".csv" Then
+       
+       AbrirCSV = False
+       Exit Function
+   End If
+   
+   On Error GoTo ErrHandler
+   
+   Workbooks.OpenText Filename:=nombreArchivo, DataType:=xlDelimited, Semicolon:=True, Comma:=False, Local:=False
+   AbrirCSV = True
+   Exit Function
+
+ErrHandler:
+    AbrirCSV = False
+End Function;
+</pre>
+
+</section>
+
+<script>
+  var fichero2 = `
+Attribute VB_Name = "PreparaBD"
+Public rutaBuscarExcel As String
+Public rutaDestino As String
+Public DestinationFolder As String
+Public DestinationFileName As String
+Public logFilename As String
+
+Public extensionBuscarExcel As String
+Public nombreExcel As String
+Public nombreHojaProcesado As String
+Public nombreHojaResultado As String
+Public columnasResultado As Variant
+Public columnasProcesado As Variant
+
+Public cPos As Object
+
+Public numFiles As Integer
+Public limiteExcelProcesar As Integer
+
+Sub config()
+    rutaBuscarExcel = "C:\MD_Sql\OrigenExcel"
+    extensionBuscarExcel = "xls"
+    rutaDestino = "C:\MD_Sql\BDAuxiliar"
+    DestinationFolder = "C:\MD_Sql\DestinoIntercambio\"
+    DestinationFileName = "listado.csv"
+    logFilename = "logExport.txt"
+
+    nombreExcel = "PreparaBD.xlsm"
+    nombreHojaProcesado = "PROCESADO"
+    nombreHojaResultado = "RESULTADO"
+    columnasResultado = Array("DIRECTORIO", "NOMBRE", "PROCESADO")
+    columnasProcesado = Array("DIRECTORIO", "NOMBRE")
+    limiteExcelProcesar = 50
+    
+
+    Set cPos = CreateObject("Scripting.Dictionary")
+    cPos.Add LCase("link"), 1
+    cPos.Add LCase("filename"), 2
+    cPos.Add LCase("fileSize"), 3
+    cPos.Add LCase("hoja"), 4
+    cPos.Add LCase("version"), 5
+    cPos.Add LCase("observacion"), 6
+    cPos.Add LCase("error"), 7
+    
+End Sub
+
+
+Sub BuscarArchivosXLS_origen(ByVal CarpetaInicial As String)
+    Dim Carpeta As Object, Subcarpeta As Object
+    Dim Archivo As Object
+    Dim FSO As Object
+    Dim Ruta As String
+
+    ' Crear un objeto FileSystemObject
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+
+    ' Comprobar si la carpeta inicial existe
+    If Not FSO.FolderExists(CarpetaInicial) Then
+        MsgBox "La carpeta inicial no existe.", vbExclamation
+        Exit Sub
+    End If
+
+    ' Obtener la lista de archivos en la carpeta inicial
+    Set Carpeta = FSO.GetFolder(CarpetaInicial)
+    Debug.Print "Buscando en " & CarpetaInicial
+
+    ' Recorrer todos los archivos en la carpeta inicial
+    For Each Archivo In Carpeta.Files
+        ' Verificar si el archivo tiene la extensi�n ".xls"
+        If InStr(LCase(Right(Archivo.Name, 5)), ".xls") <> 0 Then
+            ' Hacer algo con el archivo (por ejemplo, imprimir el nombre)
+            Debug.Print Archivo.Path
+        End If
+    Next Archivo
+    
+   ' Recorrer las subcarpetas de la carpeta inicial de forma recursiva
+    For Each Subcarpeta In Carpeta.Subfolders
+        'Debug.Print Subcarpeta.Path
+        BuscarArchivosXLS Subcarpeta.Path
+    Next Subcarpeta
+
+    ' Liberar el objeto FileSystemObject
+    Set FSO = Nothing
+End Sub
+
+Sub inicio()
+    Call config
+    
+    numFiles = 0
+
+    Dim aw As Workbook
+    Set aw = ActiveWorkbook
+    
+    ' Obtener el nombre de la hoja actual
+    Dim NombreHojaActual As String
+    NombreHojaActual = aw.ActiveSheet.Name
+    
+    ' Definir la hoja de Excel y la hoja de destino (en este caso, "Exportacion")
+    Dim hojaExcel As Worksheet
+    
+    Dim nombreHojaExport
+    nombreHojaExport = "Exportacion"
+    
+    If aw.Name = nombreExcel Then
+        'MsgBox "HOJA DE CALCULO CORRECTA"
+    Else
+        'MsgBox "HOJA DE CALCULO INCORRECTA: " & aw.Name & " Deseas continuar?"
+    End If
+    
+    
+    Open DestinationFolder & DestinationFileName For Output Shared As #1
+    'Call Mostrar_Archivos(rutaBuscarExcel, extensionBuscarExcel)
+    Call BuscarArchivosXLS(rutaBuscarExcel, extensionBuscarExcel)
+    Close #1
+    
+    MsgBox "Se ha finalizado la escritura del listado de hojas."
+    
+    'DestinationFolder = "C:\MD_Sql\DestinoIntercambio\"
+    'DestinationFileName = "listado.csv"
+    If Not AbrirCSV(DestinationFolder & DestinationFileName) Then
+        MsgBox "Se ha producido un error al intentar abrir " & DestinationFolder & DestinationFileName
+    Else
+        
+        'Dim awCSV As Workbook
+        'Set awCSV = ActiveWorkbook
+        'Dim hojaCSV As String
+        'hojaCSV = awCSV.ActiveSheet.Name
+        'MsgBox awCSV.Name & " " & hojaCSV & numFiles
+        
+        Call procesaCSV
+    
+    End If
+
+End Sub
+
+Sub prueba()
+    
+    Call config
+    Call procesaCSV
+    
+End Sub
+
+Function procesaCSV()
+    If Not AbrirCSV(DestinationFolder & DestinationFileName) Then
+        MsgBox "Error abriendo: " & DestinationFolder & DestinationFileName
+        Exit Function
+    End If
+    
+    Dim awPpal As Workbook
+    Set awPpal = Workbooks(nombreExcel) ' nombreExcel = "PreparaBD.xlsm"
+    Dim hojaPpal As Worksheet
+    Set hojaPpal = awPpal.Sheets(nombreHojaProcesado)
+    hojaPpal.Activate
+    hojaPpal.Range("A1").Select
+
+    Dim awCsv As Workbook
+    Set awCsv = Workbooks(DestinationFileName) ' DestinationFileName = "listado.csv"
+    Dim hojaCSV As Worksheet
+    
+    
+    Set hojaCSV = awCsv.Sheets(1)
+    hojaCSV.Activate
+    hojaCSV.Range("A1").Select
+
+    Dim r, c, v, filesize, cont
+    r = 1
+    c = 1
+    cont = 0
+    
+    Dim posPpal, posCSV
+    posPpal = 1
+    
+    Dim contadorProcesados
+    contadorProcesados = 0
+    
+    Dim resultHoja As Variant
+    Dim lres As Integer
+    
+    Dim nombreExcelListado
+    nombreExcelListado = Replace(hojaCSV.Cells(r + cont, c + 1).Value, "##", ",")
+    v = hojaCSV.Cells(r + cont, c).Value & "\" & nombreExcelListado
+        
+    Dim processedResult As Variant
+    Dim encontrado
+    
+    While (hojaCSV.Cells(r + cont, c).Value <> "")
+        nombreExcelListado = Replace(hojaCSV.Cells(r + cont, c + 1).Value, "##", ",")
+        v = hojaCSV.Cells(r + cont, c).Value & "\" & nombreExcelListado
+        filesize = hojaCSV.Cells(r + cont, 3).Value
+        
+        Debug.Print "procesaCSV=" & v
+        Debug.Print "Vamos a copiar: " & Replace(v, rutaBuscarExcel, "")
+        Debug.Print "        de la carpeta: " & rutaBuscarExcel
+        Debug.Print "        a la carpeta " & rutaDestino
+        Debug.Print "        con el nombre: " & rutaDestino & Replace(v, rutaBuscarExcel, "")
+        Debug.Print "---------------------------------------------------------------------------------------"
+
+        processedResult = isProcessed(hojaPpal, v, 2)
+        encontrado = processedResult(0)
+        posPpal = processedResult(1)
+        
+        If encontrado = 1 And hojaPpal.Cells(posPpal, cPos("filesize")).Value = filesize Then
+        
+        
+       ' Esta procesado y no ha cambiado el tama�o, no se ha modificado,
+            ' No tenemos nada que hacer
+            Debug.Print hojaPpal.Cells(posPpal, cPos("filesize")).Value, filesize
+        Else
+        'If posPpal <> -1 Then
+            hojaPpal.Cells(posPpal, cPos("filename")).Value = v
+            hojaPpal.Cells(posPpal, cPos("filesize")).Value = filesize
+            
+            If isFormatoExcelMD(nombreExcelListado) = False Then
+                'hojaPpal.Cells(posPpal, cPos("filename")).Value = v
+                hojaPpal.Cells(posPpal, cPos("error")).Value = "Formato de archivo no reconocido, no se procesa"
+            Else
+                resultHoja = procesaExcelMedicion(v)
+                If IsEmpty(resultHoja) Then
+                    'hojaPpal.Cells(posPpal, cPos("filename")).Value = v
+                    hojaPpal.Cells(posPpal, cPos("observacion")).Value = "VACIO"
+                    'If lres > 0 Then hojaPpal.Cells(posPpal, 4).Value = resultHoja(1)
+                    'If lres > 1 Then hojaPpal.Cells(posPpal, 5).Value = resultHoja(2)
+                Else
+                    lres = UBound(resultHoja)
+                    'hojaPpal.Cells(posPpal, cPos("filename")).Value = v
+                    hojaPpal.Cells(posPpal, cPos("hoja")).Value = resultHoja(0)
+
+                    If lres > 0 Then hojaPpal.Cells(posPpal, cPos("version")).Value = resultHoja(1)
+                    
+                    
+                    If lres > 1 Then hojaPpal.Cells(posPpal, cPos("observacion")).Value = resultHoja(2)
+                End If
+                
+                If (contadorProcesados > limiteExcelProcesar) Then
+                    hojaPpal.Cells(posPpal, cPos("error")).Value = "Proceso finalizado por contiguracion, contador = " & contadorProcesados
+                    Exit Function
+                End If
+                
+                contadorProcesados = contadorProcesados + 1
+            
+            End If
+
+        End If ' posPpal
+        
+        cont = cont + 1
+        
+    Wend
+    
+    MsgBox "Procesados " & contadorProcesados & " calculos de presupuestos MD."
+    
+End Function
+
+'    rutaBuscarExcel = "C:\MD_Sql\OrigenExcel"
+'    extensionBuscarExcel = "xls"
+'    rutaDestino = "C:\MD_Sql\BDAuxiliar"
+'    DestinationFolder = "C:\MD_Sql\DestinoIntercambio\"
+'    DestinationFileName = "listado.csv"
+'    logFilename = "logExport.txt"
+
+'    nombreExcel = "PreparaBD.xlsm"
+
+'    nombreHojaResultado = "RESULTADO"
+'    columnasResultado = Array("DIRECTORIO", "NOMBRE", "PROCESADO")
+'    columnasProcesado = Array("DIRECTORIO", "NOMBRE")
+'    limiteExcelProcesar = 50
+
+Sub ObtenerColumnaActiva()
+    Call config
+    'Dim c
+    'Dim r
+    'r = Split(ActiveCell.Address, "$")(2)
+    'MsgBox Cells(r, 2).Value
+    
+    'Call procesaOneCSV(r)
+    
+    Dim rng As Range
+    Set rng = Selection.Rows
+    For Each it In rng
+        'Debug.Print it.row
+        Call procesaOneCSV(it.row)
+    Next
+
+End Sub
+
+Function procesaOneCSV(posPpal)
+    If Not AbrirCSV(DestinationFolder & DestinationFileName) Then
+        MsgBox "Error abriendo: " & DestinationFolder & DestinationFileName
+        Exit Function
+    End If
+    
+    Dim awPpal As Workbook
+    Set awPpal = Workbooks(nombreExcel) ' nombreExcel = "PreparaBD.xlsm"
+    
+    Dim hojaPpal As Worksheet
+    Set hojaPpal = awPpal.Sheets(nombreHojaProcesado) '    nombreHojaProcesado = "PROCESADO"
+    hojaPpal.Activate ' IMPORTANTE, NO QUITAR
+      
+    Dim resultHoja As Variant
+    Dim lres As Integer
+    
+    'cPos ("link")
+    
+    'cPos ("fileSize")
+    'cPos ("hoja")
+    'cPos ("version")
+    'cPos ("observacion")
+    'cPos ("error")
+    
+    Dim nombreExcelListado
+    nombreExcelListado = Cells(posPpal, cPos("filename")).Value
+       
+    If (nombreExcelListado <> "") Then
+        If (hojaPpal.Cells(posPpal, cPos("link")).Value = "") Then
+            hojaPpal.Cells(posPpal, cPos("link")).Select
+            ActiveSheet.Hyperlinks.Add Anchor:=Selection, Address:=nombreExcelListado, TextToDisplay:=nombreExcelListado
+        End If
+        
+        Debug.Print "---------------------------------------------------------------"
+        
+        
+        Debug.Print "procesaCSV=" & nombreExcelListado
+        'Debug.Print "Vamos a copiar: " & Replace(v, rutaBuscarExcel, "")
+        'Debug.Print "        de la carpeta: " & rutaBuscarExcel
+        'Debug.Print "        a la carpeta " & rutaDestino
+        'Debug.Print "        con el nombre: " & rutaDestino & Replace(v, rutaBuscarExcel, "")
+
+        If isFormatoExcelMD(nombreExcelListado) = False Then
+            'hojaPpal.Cells(posPpal, 2).Value = v
+            hojaPpal.Cells(posPpal, cPos("observacion")).Value = "Formato de archivo no reconocido, no se procesa"
+        Else
+            resultHoja = procesaExcelMedicion(nombreExcelListado)
+            If IsEmpty(resultHoja) Then
+                'hojaPpal.Cells(posPpal, 2).Value = v
+                hojaPpal.Cells(posPpal, cPos("observacion")).Value = "VACIO"
+            Else
+                lres = UBound(resultHoja)
+                'hojaPpal.Cells(posPpal, 2).Value = v
+                hojaPpal.Cells(posPpal, cPos("hoja")).Value = resultHoja(0)
+                If lres > 0 Then hojaPpal.Cells(posPpal, cPos("version")).Value = resultHoja(1)
+                If lres > 1 Then hojaPpal.Cells(posPpal, cPos("observacion")).Value = resultHoja(2)
+            End If
+        End If
+    End If
+    'MsgBox "Procesados " & contadorProcesados & " calculos de presupuestos MD."
+    
+        End Function
+
+Function isFormatoExcelMD(texto) As Boolean
+    Dim patron As String
+    Dim regEx As Object
+    Dim matches As Object
+    Dim match As Object
+    
+    'patron = "OF\.MD\s\d{6}(\.\d)?-\w+,\s[\w\s]+\.xls"
+    patron = "OF\.MD \d+(\.\d+)?[-_\s](\w)+?[^,]+(\s*,\s*[^,]+)*\.xls"
+
+    Set regEx = CreateObject("VBScript.RegExp")
+    With regEx
+        .Pattern = patron
+        .Global = True
+    End With
+    
+    Set matches = regEx.Execute(texto)
+    If matches.Count > 0 Then
+        'Set match = matches.Item(0)
+        'Debug.Print "OK " & match.Value
+        isFormatoExcelMD = True
+    Else
+        isFormatoExcelMD = False
+    End If
+    Debug.Print "   isFormatoExcelMD=", isFormatoExcelMD
+
+End Function
+
+Function procesaExcelMedicion(RutaArchivo) As Variant
+    Dim MiLibro As Workbook
+    
+    Application.DisplayAlerts = False
+    
+    Set MiLibro = Workbooks.Open(RutaArchivo, 0)
+    
+    Dim hojas As Variant
+    hojas = nombreHojas(MiLibro)
+    
+    Dim resultSQL As Variant
+    
+    On Error GoTo salida
+    
+    If (hojas(0) = "ERROR") Then
+        'procesaExcelMedicion = hojas
+        procesaExcelMedicion = Array(
+        "ERROR en nombre de pesta�a. Tomamos la primera hoja.", "", "")
+        MiLibro.Sheets(1).Select
+        resultSQL = SQL_export.SQL_export
+    Else
+        procesaExcelMedicion = Array("Encontrada hoja: " & hojas(1), "", "")
+        MiLibro.Sheets(hojas(1)).Select
+        resultSQL = SQL_export.SQL_export
+    End If
+    
+    Windows(nombreExcel).Activate
+   
+salida:
+   
+    On Error GoTo cerrado
+    MiLibro.Close
+cerrado:
+
+    Application.DisplayAlerts = True
+    
+    'Debug.Print "   procesaExcelMedicion=", resultSQL
+
+    procesaExcelMedicion = resultSQL
+
+End Function
+
+Function nombreHojas(excelAbierto) As Variant
+    Dim result As Variant
+    result = Array("", "", "")
+    Dim txt, n
+    Dim contMD
+    contMD = 0
+    txt = ""
+    
+    With excelAbierto.Sheets
+        For i = 1 To .Count
+            n = .Item(i).Name
+            If (InStr(n, "MD") > 0) Then
+                If (txt = "") Then
+        
+        txt = n
+                End If
+                contMD = contMD + 1
+            End If
+            result(2) = result(2) & ";" & n
+        Next i
+    End With
+    
+    If (contMD = 0) Then
+        result(0) = "ERROR"
+        result(1) = "No se encuentra la hoja a procesar"
+    Else
+        result(1) = txt
+        result(2) = "ADVERTENCIA: " & result(2)
+    End If
+    
+    nombreHojas = result
+
+End Function
+
+' Busca "nombreArchivo" en la colummna "searchColumn" de la hoja "sheetXLS" y devuelve array 1 = encontrdo, 0 = no encontrado, pos
+Function isProcessed(sheetXLS, nombreArchivo, Optional searchColumn = 1) As Variant
+    Dim r, c, v, cont
+    'r = 1
+    c = searchColumn
+    cont = 1
+    
+    v = sheetXLS.Cells(cont, c).Value '& "\" & sheetXLS.Cells(cont, c + 1).Value
+        
+    While (v <> "")
+        If (v = nombreArchivo) Then
+            isProcessed = Array(1, cont)
+            Exit Function
+        End If
+        
+        v = sheetXLS.Cells(cont, c).Value
+        cont = cont + 1
+    
+    Wend
+    isProcessed = Array(0, cont)
+    
+End Function
+
+Function ObtenerTamanoArchivo(RutaArchivo As String) As Long
+    Dim fs As Object
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    
+    If fs.FileExists(RutaArchivo) Then
+        ObtenerTamanoArchivo = fs.GetFile(RutaArchivo).Size
+    Else
+        ObtenerTamanoArchivo = -1 ' Devuelve -1 si el archivo no existe
+    End If
+    
+    Set fs = Nothing
+End Function
+
+Function BuscarArchivosXLS(ByVal CarpetaInicial As String, extension)
+    Dim Carpeta As Object, Subcarpeta As Object
+    Dim Archivo As Object
+    Dim FSO As Object
+    Dim Ruta As String
+
+    ' Crear un objeto FileSystemObject
+    Set FSO = CreateObject("Scripting.FileSystemObject")
+
+    ' Comprobar si la carpeta inicial existe
+    If Not FSO.FolderExists(CarpetaInicial) Then
+        'MsgBox "La carpeta inicial no existe.", vbExclamation
+        Exit Function
+    End If
+
+    ' Obtener la lista de archivos en la carpeta inicial
+    Set Carpeta = FSO.GetFolder(CarpetaInicial)
+    'Debug.Print "Buscando en " & CarpetaInicial
+
+    ' Recorrer todos los archivos en la carpeta inicial
+    For Each Archivo In Carpeta.Files
+        ' Verificar si el archivo tiene la extensi�n ".xls"
+        If InStr(LCase(Right(Archivo.Name, 5)), extension) <> 0 Then
+            ' Hacer algo con el archivo (por ejemplo, imprimir el nombre)
+            Debug.Print Archivo.Path
+            
+            Debug.Print Replace(CarpetaInicial & "\" & Archivo.Name, "\", "##")
+            'Print #1, Replace(ruta & "\" & archivo.Name, "\", "#")
+            Print #1, CarpetaInicial & "," & Replace(Archivo.Name, ",", "##") & "," & FSO.GetFile(Archivo.Path).Size
+
+        End If
+    Next Archivo
+    
+    'Recorrer las subcarpetas de la carpeta inicial de forma recursiva
+    For Each Subcarpeta In Carpeta.Subfolders
+        Debug.Print Subcarpeta.Path
+        BuscarArchivosXLS Subcarpeta.Path, extension
+    Next Subcarpeta
+
+    ' Liberar el objeto FileSystemObject
+    Set FSO = Nothing
+End Function
+
+
+Function Mostrar_Archivos(Ruta, extension)
+    Dim fs, Carpeta, Archivo, Subcarpeta As Object
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Dim cont
+    
+    cont = 0
+    
+    If Ruta = "" Then
+        Exit Function
+    ElseIf Right(Ruta, 1) <> "" Then
+        Ruta = Ruta & ""
+    End If
+     
+    On Error GoTo ErrHandler
+    Set Carpeta = fs.GetFolder(Ruta)
+    
+    For Each Archivo In Carpeta.Files
+        'If InStr(LCase(Right(Archivo.Name, 5)), ".xls") <> 0 Then
+        If InStr(LCase(Right(Archivo.Name, 5)), extension) <> 0 Then
+
+        'If InStr(Left(fs.GetExtensionName(Archivo), 5), extension) > 0 Then
+            'ActiveCell.Value = ruta
+            'ActiveCell.Offset(0, 1).Value = archivo.Name
+            'ActiveCell.Offset(0, 2).Value = Replace(ruta & "\" & archivo.Name, "\", "##")
+            'ActiveCell.Offset(1, 0).Select
+            Debug.Print Replace(Ruta & "\" & Archivo.Name, "\", "##")
+            'Print #1, Replace(ruta & "\" & archivo.Name, "\", "#")
+            Print #1, Ruta & "," & Replace(Archivo.Name, ",", "##")
+            numFiles = numFiles + 1
+
+        '    fs.CopyFile Source:=fs.GetFile(archivo), _
+        '    Destination:=DestinationFolder & "\" & archivo.Name, Overwritefiles:=False
+        End If
+
+    Next
+    
+    
+    
+    
+    'Secci�n 5: Obtener subcarpetas del objeto Folder
+    For Each Subcarpeta In Carpeta.Subfolders
+        Debug.Print "Entramos en subcarpeta: " & Subcarpeta
+        Call Mostrar_Archivos(Subcarpeta, extension)
+    Next
+     
+    'Secci�n 6: Auto-ajustar columnas y salir
+    ActiveCell.EntireColumn.AutoFit
+
+salimos:
+
+    Exit Function
+     
+ErrHandler:
+    'ActiveCell.Value = "Ruta inexistente"
+ 
+End Function
+    
+    
+
+
+
+
+
+
+
+
+Function AbrirCSV(nombreArchivo) As Boolean
+   If Right(nombreArchivo, 4) <> ".xls" And _
+       Right(nombreArchivo, 5) <> ".xlsx" And _
+       Right(nombreArchivo, 4) <> ".csv" Then
+       
+       AbrirCSV = False
+       Exit Function
+   End If
+   
+   On Error GoTo ErrHandler
+   
+   Workbooks.OpenText Filename:=nombreArchivo, DataType:=xlDelimited, Semicolon:=True, Comma:=False, Local:=False
+   AbrirCSV = True
+   Exit Function
+
+ErrHandler:
+    AbrirCSV = False
+End Function`;
+</script>
+
+
+<script>
+  var navBarData;
+  var sectionList = [];
+
+  function sectionShow(valor, pre = "") {
+    //alert(sectionList[valor]);
+    let divs = document.querySelectorAll('section');
+    divs.forEach(function(currentValue, index, arr) {
+      if (currentValue.id == sectionList[valor]) {
+        currentValue.classList.remove("hide");
+        if (pre != "") {
+          let pres = currentValue.querySelectorAll('pre');
+          pres.forEach(function(preValue, preIndex, preArr) {
+            if (pre == preIndex) {
+              preValue.classList.remove("hide");
+            } else {
+              preValue.classList.add("hide");
+            }
+          });
+        }
+      } else {
+        currentValue.classList.add("hide");
+      }
+    });
+  }
+
+  function fnSectionList() {
+    let ID = [];
+    let divs = document.querySelectorAll('section');
+    navBarData = {
+      title: "Joint Code",
+      items: []
+    };
+    divs.forEach(function(currentValue, index, arr) {
+      sectionList.push(currentValue.id);
+      navBarData.items.push({
+        label: currentValue.id,
+        link: "javascript:sectionShow('{valor}');".replace("{valor}", index)
+      })
+      if (currentValue.classList.contains("drop")) {
+        //<button onclick="getPrueba('lisp')">Prueba LISP</button>
+        console.log(currentValue.value);
+         if (currentValue.classList.contains("buttons")) {
+          //alert("Mete drop " + currentValue.id);
+          let pre = currentValue.querySelectorAll('button');
+          navBarData.items[navBarData.items.length - 1].class = "liDropdown";
+          navBarData.items[navBarData.items.length - 1].dropitems = [];
+          pre.forEach(function(preValue, preIndex, preArr) {
+            console.log(preValue.tagName + " " + preValue.innerText + " " + preValue.onclick);
+            navBarData.items[navBarData.items.length - 1].dropitems.push(
+             
+              {
+              label: preValue.innerText,
+              //  link: preValue.onclick,
+              link2: "javascript:sectionShow('{valor}', '{pre}');".replace("{valor}", index).replace("{pre}", preIndex)
+            }
+            )
+          });
+        } else {
+          let pre = currentValue.querySelectorAll('pre');
+          navBarData.items[navBarData.items.length - 1].class = "liDropdown";
+          navBarData.items[navBarData.items.length - 1].dropitems = [];
+          pre.forEach(function(preValue, preIndex, preArr) {
+            navBarData.items[navBarData.items.length - 1].dropitems.push({
+              label: preValue.id,
+              link: "javascript:sectionShow('{valor}', '{pre}');".replace("{valor}", index).replace("{pre}", preIndex)
+            })
+          });
+        }
+      }
+    });
+  }
+  const step = 10;
+  let x = 0,
+    y = 0;
+
+  function move(direction) {
+    switch (direction) {
+      case 'up':
+        y -= step;
+        break;
+      case 'down':
+        y += step;
+        break;
+      case 'left':
+        x -= step;
+        break;
+      case 'right':
+        x += step;
+        break;
+    }
+    paper.translate(x, y);
+  }
+  const factor = 0.1; // Puedes ajustar este valor según sea necesario
+  let zoomValue = 1;
+
+  function zoom(type) {
+    if (type === 'in') {
+      zoomValue += factor;
+    } else if (type === 'out') {
+      zoomValue -= factor;
+    }
+    paper.scale(zoomValue, zoomValue);
+  }
+  const incremento = 20;
+  let size = 0;
+
+  function aumenta(type) {
+    var px, py;
+    console.log(paper.width + "," + paper.height);
+    for (const [clave, valor] of Object.entries(paper)) {
+      console.log("paper[" + clave + "]=" + valor);
+      if (clave == "options") {
+        for (const [clave2, valor2] of Object.entries(paper[clave])) {
+          console.log("-->" + clave + " [" + clave2 + "]=" + valor2);
+        }
+      }
+    }
+    if (type === 'in') {
+      size += incremento;
+    } else if (type === 'out') {
+      size -= incremento;
+    }
+    px = paper.options.width;
+    py = paper.options.height;
+    paper.setDimensions(px + size, py + size);
+  }
+</script>
+
+<script>
+  // self executing function here
+  (function() {
+    // your page initialization code here
+    // the DOM will be available here
+    fnSectionList();
+    sectionShow(0);
+  })();
+</script>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.5.0/backbone-min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.7.7/joint.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/svg.pan-zoom.js/2.8.0/svg.pan-zoom.min.js'></script>
+<script src='https://codepen.io/Catrisa/pen/zYeXzoR.js'></script><script type="module" src="./script.js"></script>
+
+</body>
+</html>
